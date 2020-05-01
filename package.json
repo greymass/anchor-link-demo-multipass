@@ -1,6 +1,6 @@
 {
-  "name": "eosio-signing-request-multipass",
-  "homepage": "https://greymass.github.io/eosio-signing-request-multipass",
+  "name": "anchor-link-demo-multipass",
+  "homepage": "https://greymass.github.io/anchor-link-demo-multipass",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
