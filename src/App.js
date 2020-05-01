@@ -193,11 +193,16 @@ class App extends Component {
           <Header>Transact with anchor-link</Header>
           <Button
             content="Sign Test Transaction"
+            disabled={!session}
             icon="external"
             onClick={this.signTransaction}
             primary
             size="huge"
           />
+          {(!session)
+            ? <p style={{ marginTop: '0.5em'}}>Login using anchor-link to sign a test transaction.</p>
+            : false
+          }
         </Segment>
         <Segment attached="bottom" padded>
           <Header>Sample Code</Header>
