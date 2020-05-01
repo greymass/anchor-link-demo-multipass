@@ -6,6 +6,9 @@ import { Button, Container, Header, Segment } from 'semantic-ui-react'
 import AnchorLink from 'anchor-link'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 
+// Loading in modifications to test bloks.io crashing
+import { JsonRpc } from '@jafri/eosjs2'
+
 // Optional code to manage localStorage for sessions and persistence
 import LocalSessionStorage from './utils/storage'
 
@@ -77,7 +80,7 @@ class App extends Component {
       // Specify the target chainId
       chainId,
       // Set the API to use
-      rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
+      rpc: new JsonRpc(`${rpc.protocol}://${rpc.host}:${rpc.port}`),
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
       // Pass in the browser transport
