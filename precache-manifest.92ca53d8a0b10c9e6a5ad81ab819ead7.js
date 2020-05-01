@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5882616c1b5c7a51d3e199a0a3f0301b",
+    "revision": "749acc7294dab312cca5bab2a24c6e1f",
     "url": "/eosio-signing-request-multipass/index.html"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/eosio-signing-request-multipass/static/js/154.fe76378d.chunk.js"
   },
   {
-    "revision": "49774cf3ffa7721126c3",
-    "url": "/eosio-signing-request-multipass/static/js/main.5b15e2bd.chunk.js"
+    "revision": "12902d03d31e77a04192",
+    "url": "/eosio-signing-request-multipass/static/js/main.c82ebdcf.chunk.js"
   },
   {
     "revision": "c0c640968dae5aba6f23",

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/eosio-signing-request-multipass/static/js/main.5b15e2bd.chunk.js",
-    "main.js.map": "/eosio-signing-request-multipass/static/js/main.5b15e2bd.chunk.js.map",
+    "main.js": "/eosio-signing-request-multipass/static/js/main.c82ebdcf.chunk.js",
+    "main.js.map": "/eosio-signing-request-multipass/static/js/main.c82ebdcf.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_abap.js": "/eosio-signing-request-multipass/static/js/react-syntax-highlighter_languages_refractor_abap.016ee0bc.chunk.js",
     "react-syntax-highlighter_languages_refractor_abap.js.map": "/eosio-signing-request-multipass/static/js/react-syntax-highlighter_languages_refractor_abap.016ee0bc.chunk.js.map",
     "react-syntax-highlighter_languages_refractor_actionscript.js": "/eosio-signing-request-multipass/static/js/react-syntax-highlighter_languages_refractor_actionscript.eeebf1d8.chunk.js",
@@ -312,7 +312,7 @@
     "static/js/154.fe76378d.chunk.js": "/eosio-signing-request-multipass/static/js/154.fe76378d.chunk.js",
     "static/js/154.fe76378d.chunk.js.map": "/eosio-signing-request-multipass/static/js/154.fe76378d.chunk.js.map",
     "index.html": "/eosio-signing-request-multipass/index.html",
-    "precache-manifest.f3bd96debfb257f0901985865b41975a.js": "/eosio-signing-request-multipass/precache-manifest.f3bd96debfb257f0901985865b41975a.js",
+    "precache-manifest.92ca53d8a0b10c9e6a5ad81ab819ead7.js": "/eosio-signing-request-multipass/precache-manifest.92ca53d8a0b10c9e6a5ad81ab819ead7.js",
     "service-worker.js": "/eosio-signing-request-multipass/service-worker.js",
     "static/css/153.4ad22f7e.chunk.css.map": "/eosio-signing-request-multipass/static/css/153.4ad22f7e.chunk.css.map",
     "static/js/153.53c09df0.chunk.js.LICENSE.txt": "/eosio-signing-request-multipass/static/js/153.53c09df0.chunk.js.LICENSE.txt",
@@ -327,6 +327,6 @@
     "static/js/runtime-main.f1ad343e.js",
     "static/css/153.4ad22f7e.chunk.css",
     "static/js/153.53c09df0.chunk.js",
-    "static/js/main.5b15e2bd.chunk.js"
+    "static/js/main.c82ebdcf.chunk.js"
   ]
 }

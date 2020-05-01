@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/eosio-signing-request-multipass/precache-manifest.f3bd96debfb257f0901985865b41975a.js"
+  "/eosio-signing-request-multipass/precache-manifest.92ca53d8a0b10c9e6a5ad81ab819ead7.js"
 );
 
 self.addEventListener('message', (event) => {
