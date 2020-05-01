@@ -1,2 +1,0 @@
-(this["webpackJsonpeosio-signing-request-multipass"]=this["webpackJsonpeosio-signing-request-multipass"]||[]).push([[60],{663:function(s,t,i){"use strict";function n(s){s.languages.ini={comment:/^[ \t]*[;#].*$/m,selector:/^[ \t]*\[.*?\]/m,constant:/^[ \t]*[^\s=]+?(?=[ \t]*=)/m,"attr-value":{pattern:/=.*/,inside:{punctuation:/^[=]/}}}}s.exports=n,n.displayName="ini",n.aliases=[]}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_refractor_ini.4b3e402c.chunk.js.map

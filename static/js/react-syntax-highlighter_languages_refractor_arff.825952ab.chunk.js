@@ -1,2 +1,0 @@
-(this["webpackJsonpeosio-signing-request-multipass"]=this["webpackJsonpeosio-signing-request-multipass"]||[]).push([[8],{616:function(s,e,t){"use strict";function i(s){s.languages.arff={comment:/%.*/,string:{pattern:/(["'])(?:\\.|(?!\1)[^\\\r\n])*\1/,greedy:!0},keyword:/@(?:attribute|data|end|relation)\b/i,number:/\b\d+(?:\.\d+)?\b/,punctuation:/[{},]/}}s.exports=i,i.displayName="arff",i.aliases=[]}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_refractor_arff.825952ab.chunk.js.map

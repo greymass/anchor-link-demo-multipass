@@ -1,2 +1,0 @@
-(this["webpackJsonpeosio-signing-request-multipass"]=this["webpackJsonpeosio-signing-request-multipass"]||[]).push([[45],{648:function(s,i,e){"use strict";function t(s){s.languages.git={comment:/^#.*/m,deleted:/^[-\u2013].*/m,inserted:/^\+.*/m,string:/("|')(?:\\.|(?!\1)[^\\\r\n])*\1/m,command:{pattern:/^.*\$ git .*$/m,inside:{parameter:/\s--?\w+/m}},coord:/^@@.*@@$/m,commit_sha1:/^commit \w{40}$/m}}s.exports=t,t.displayName="git",t.aliases=[]}}]);
-//# sourceMappingURL=react-syntax-highlighter_languages_refractor_git.ec0ccf22.chunk.js.map
