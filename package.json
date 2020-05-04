@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "anchor-link": "^1.0.4",
     "anchor-link-browser-transport": "^1.0.2",
+    "anchor-link-localstorage-persist": "^0.1.0",
     "gh-pages": "^2.2.0",
     "react": "^16.13.1",
     "react-code-blocks": "^0.0.7",

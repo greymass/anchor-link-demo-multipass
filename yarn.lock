@@ -1910,6 +1910,11 @@ anchor-link-browser-transport@^1.0.2:
   dependencies:
     qrcode "^1.4.4"
 
+anchor-link-localstorage-persist@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/anchor-link-localstorage-persist/-/anchor-link-localstorage-persist-0.1.0.tgz#b98e2331adbfaed69a8ac04b4d4a558c99271a6b"
+  integrity sha512-yDtRBZebPI9Avo38yMjTzeiiFFCkS1d4r5NFtdse5FfyZBkZtmPQs5N+dBJOSCADosoE9phOlikG/LzzrWUHmg==
+
 anchor-link@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/anchor-link/-/anchor-link-1.0.4.tgz#962582e5a2fb70208e1b3e6fc917528d539b0ea1"
@@ -4108,9 +4113,9 @@ entities@^2.0.0:
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
 
 eosio-signing-request@^1.1.1:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/eosio-signing-request/-/eosio-signing-request-1.1.3.tgz#e8d38104ab9e9f96ac3719a9a5ece78699ed596a"
-  integrity sha512-yTfp3q6Bte4x6OSgNdgTrAVnjixUC13h7klbquYg9xwgBW84EyhsWbcM0CyEnGPkwKi58wM/qx7Ne3WKGiwsYQ==
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/eosio-signing-request/-/eosio-signing-request-1.1.4.tgz#6e37b92316450bc4bc3a54b9109ef7bb71ddba90"
+  integrity sha512-gJMp5t6LSW8R8Ayk2Rli+K8RBNV3Fb47XKGHqDnzsogcrTIVfsZ4GMTe4novqu+4kRx6Vblc1J/GNVy8LOiXVg==
   dependencies:
     eosjs "^20.0.0"
     fast-sha256 "^1.1.1"

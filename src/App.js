@@ -3,11 +3,8 @@ import React, { Component } from 'react'
 import { Button, Container, Header, Segment } from 'semantic-ui-react'
 
 // The required anchor-link includes
-import AnchorLink from 'anchor-link'
+import AnchorLink from 'anchor-link-localstorage-persist'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
-
-// Optional code to manage localStorage for sessions and persistence
-import LocalSessionStorage from './utils/storage'
 
 // React components for this demo, not required
 import { find } from 'lodash'
@@ -18,22 +15,18 @@ import Response from './Response.js'
 import ExampleSign from './examples/Sign'
 
 class App extends Component {
-  // App initialization code
+  // Demo initialization code
   constructor(props) {
     super(props)
     // Add the ability to retrieve the chainId from the URL
     const search = window.location.search
     const params = new URLSearchParams(search)
     const chainId = params.get('chainId') || '0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72'
-    // Establish storage for sessions in localstorage
-    this.storage = new LocalSessionStorage()
-    // Load any existing sessions
-    const sessions = this.storage.scan()
-    // Set application state
+    // Set initial blank application state
     this.state = {
       response: undefined,
       session: undefined,
-      sessions,
+      sessions: [],
       chainId,
     }
   }
@@ -52,12 +45,8 @@ class App extends Component {
     try {
       // Use the anchor-link login method with the chain id to establish a session
       const identity = await this.link.login('anchor-link-demo-multipass', { chainId })
-      // Retrieve the returned actor and permission used to login
-      const { actor, permission } = identity.signer
-      // Save this session within our storage engine associated to the chainId/actor/permission
-      await this.storage.store(identity.session, chainId, actor, permission)
-      // Update list of all sessions
-      const sessions = this.storage.scan()
+      // Retrieve a list of all available sessions to update demo state
+      const sessions = this.link.sessions(chainId)
       // Update state with the current session and all available sessions
       this.setState({
         session: identity.session,
@@ -68,11 +57,12 @@ class App extends Component {
     }
   }
   establishLink = () => {
+    // Load the current chainId from state
     const { chainId } = this.state
-    // Find the blockchain and retrieve the appropriate API endpoint
+    // Find the blockchain and retrieve the appropriate API endpoint for the demo
     const blockchain = find(blockchains, { chainId })
     const rpc = blockchain.rpcEndpoints[0]
-    // Establish the anchor-link instance
+    // Initialize anchor-link using the local storage persist module
     this.link = new AnchorLink({
       // Specify the target chainId
       chainId,
@@ -80,16 +70,23 @@ class App extends Component {
       rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
+      // Optional: The local storage key prefix to store data with
+      storageKeyPrefix: 'multipass',
       // Pass in the browser transport
       transport: new AnchorLinkBrowserTransport(),
     })
-    // Detect last used session for this chain
-    const session = this.storage.restore(this.link, chainId)
+    // Attempt to restore the last used session for this particular chainId
+    const session = this.link.restore(chainId)
+    // Load all existing sessions for this chain
+    const sessions = this.link.sessions(chainId)
     // Save current chainId and session into application state
     this.setState({
       chainId,
       session,
+      sessions,
     })
+    // Return in the event we need to immediately use
+    return this.link
   }
   signTransaction = async () => {
     // Retrieve current session from state
@@ -132,7 +129,7 @@ class App extends Component {
   // React State Helper to update sessions while switching accounts
   setSession = (e, { chainId, accountName, permissionName }) => {
     // Restore a specific session based on chainId, accountName, and permissionName
-    const session = this.storage.restore(this.link, chainId, accountName, permissionName)
+    const session = this.link.restore(chainId, accountName, permissionName)
     // Update application state with new session and reset response data
     this.setState({
       response: undefined,
@@ -142,9 +139,13 @@ class App extends Component {
   // React State Helper to remove/delete a session
   removeSession = (e, { chainId, accountName, permissionName }) => {
     // Remove from local storage based on chainId, accountName, and permissionName
-    this.storage.remove(chainId, accountName, permissionName)
+    this.link.remove(chainId, accountName, permissionName)
     // Remove from local application state
-    const { sessions } = this.state
+    const { session, sessions } = this.state
+    // If this was the currently active account, remove the session
+    if (session && session.auth.actor === accountName && session.auth.permission === permissionName) {
+      this.setState({ session: undefined });
+    }
     this.setState({
       sessions: sessions.filter(s => !(s.chainId === chainId && s.accountName === accountName && s.permissionName === permissionName))
     })

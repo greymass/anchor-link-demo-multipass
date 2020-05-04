@@ -4,7 +4,6 @@ import { Button, Table } from 'semantic-ui-react';
 class Debug extends Component {
   render() {
     const { chain, session, sessions } = this.props;
-    const matchingSessions = sessions.filter(s => s.chainId === chain.chainId)
     return (
       <Table>
         <Table.Header>
@@ -13,16 +12,17 @@ class Debug extends Component {
           <Table.HeaderCell>Permission</Table.HeaderCell>
           <Table.HeaderCell />
         </Table.Header>
-        {(matchingSessions.length)
+        {(sessions.length)
           ? (
             <Table.Body>
-              {matchingSessions.map((s) => {
+              {sessions.map((s) => {
                 const isCurrent = (session && s.accountName === session.auth.actor && s.permissionName === session.auth.permission)
+                const key = Object.values(s).join('-')
                 return (
-                  <Table.Row>
+                  <Table.Row key={key}>
                     <Table.Cell collapsing>
                       <Button
-                        color={isCurrent ? undefined : "green"}
+                        color={isCurrent ? "blue" : "green"}
                         content={isCurrent ? "In Use" : "Use Account"}
                         disabled={isCurrent}
                         onClick={this.props.setSession}
