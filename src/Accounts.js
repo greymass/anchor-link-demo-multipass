@@ -36,7 +36,7 @@ class Debug extends Component {
                       <Button
                         color="red"
                         icon="trash"
-                        onClick={() => this.props.removeSession((s.chainId, s.accountName, s.permissionName))}
+                        onClick={() => this.props.removeSession(s.chainId, s.accountName, s.permissionName)}
                       />
                     </Table.Cell>
                   </Table.Row>
