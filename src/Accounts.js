@@ -7,10 +7,12 @@ class Debug extends Component {
     return (
       <Table>
         <Table.Header>
-          <Table.HeaderCell collapsing>{chain.name}</Table.HeaderCell>
-          <Table.HeaderCell>Account</Table.HeaderCell>
-          <Table.HeaderCell>Permission</Table.HeaderCell>
-          <Table.HeaderCell />
+          <Table.Row>
+            <Table.HeaderCell collapsing>{chain.name}</Table.HeaderCell>
+            <Table.HeaderCell>Account</Table.HeaderCell>
+            <Table.HeaderCell>Permission</Table.HeaderCell>
+            <Table.HeaderCell />
+          </Table.Row>
         </Table.Header>
         {(sessions.length)
           ? (
@@ -25,10 +27,7 @@ class Debug extends Component {
                         color={isCurrent ? "blue" : "green"}
                         content={isCurrent ? "In Use" : "Use Account"}
                         disabled={isCurrent}
-                        onClick={this.props.setSession}
-                        chainId={s.chainId}
-                        accountName={s.accountName}
-                        permissionName={s.permissionName}
+                        onClick={() => this.props.setSession(s.chainId, s.accountName, s.permissionName)}
                       />
                     </Table.Cell>
                     <Table.Cell>{s.accountName}</Table.Cell>
@@ -37,10 +36,7 @@ class Debug extends Component {
                       <Button
                         color="red"
                         icon="trash"
-                        onClick={this.props.removeSession}
-                        chainId={s.chainId}
-                        accountName={s.accountName}
-                        permissionName={s.permissionName}
+                        onClick={() => this.props.removeSession((s.chainId, s.accountName, s.permissionName))}
                       />
                     </Table.Cell>
                   </Table.Row>
