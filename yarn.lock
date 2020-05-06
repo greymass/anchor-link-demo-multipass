@@ -1903,10 +1903,10 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-anchor-link-browser-transport@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/anchor-link-browser-transport/-/anchor-link-browser-transport-1.0.2.tgz#9f69df1f2ef827ba05fde7e6392511931fcb725c"
-  integrity sha512-IJ4eKQv77G/5PV4ahTbGWdO6VlgjmobX36xQ8MYnOVPOrb0BHEonY/N8EaObY5VUHpr0STaNyCLbRr9gePhXow==
+anchor-link-browser-transport@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/anchor-link-browser-transport/-/anchor-link-browser-transport-1.0.3.tgz#8b006dc93188d7f5b5c985f75c9849deb55f7ffa"
+  integrity sha512-lYm3zpK+IQfvigCJVHbv7gj3F8YdtdG1UoTs8QLTl+vilFUkFc3iq14zGrT69/Vg0dLES33J41Z7+15eJr6MRQ==
   dependencies:
     qrcode "^1.4.4"
 

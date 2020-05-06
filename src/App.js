@@ -73,7 +73,7 @@ class App extends Component {
       // Optional: The local storage key prefix to store data with
       storageKeyPrefix: 'multipass',
       // Pass in the browser transport
-      transport: new AnchorLinkBrowserTransport(),
+      transport: new AnchorLinkBrowserTransport({ requestStatus: false }),
     })
     // Attempt to restore the last used session for this particular chainId
     const session = this.link.restore(chainId)
