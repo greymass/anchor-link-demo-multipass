@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import { Button, Container, Header, Segment } from 'semantic-ui-react'
 
 // The required anchor-link includes
-import AnchorLink from 'anchor-link-localstorage-persist'
+import AnchorLink from 'anchor-link'
+import AnchorLinkLocalStoragePersist from 'anchor-link-localstorage-persist'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 
 // React components for this demo, not required
@@ -46,7 +47,7 @@ class App extends Component {
       // Use the anchor-link login method with the chain id to establish a session
       const identity = await this.link.login('anchor-link-demo-multipass', { chainId })
       // Retrieve a list of all available sessions to update demo state
-      const sessions = this.link.sessions(chainId)
+      const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
       this.setState({
         session: identity.session,
@@ -56,7 +57,7 @@ class App extends Component {
       console.log(e)
     }
   }
-  establishLink = () => {
+  establishLink = async () => {
     // Load the current chainId from state
     const { chainId } = this.state
     // Find the blockchain and retrieve the appropriate API endpoint for the demo
@@ -70,15 +71,15 @@ class App extends Component {
       rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
-      // Optional: The local storage key prefix to store data with
-      storageKeyPrefix: 'multipass',
+      // Configure the persistence plugin
+      storage: new AnchorLinkLocalStoragePersist(),
       // Pass in the browser transport
       transport: new AnchorLinkBrowserTransport({ requestStatus: false }),
     })
     // Attempt to restore the last used session for this particular chainId
-    const session = this.link.restore(chainId)
+    const session = await this.link.restoreSession('anchor-link-demo-multipass')
     // Load all existing sessions for this chain
-    const sessions = this.link.sessions(chainId)
+    const sessions = await this.link.listSessions('anchor-link-demo-multipass')
     // Save current chainId and session into application state
     this.setState({
       chainId,
