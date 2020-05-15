@@ -18,7 +18,7 @@ class Debug extends Component {
           ? (
             <Table.Body>
               {sessions.map((s) => {
-                const isCurrent = (session && s.accountName === session.auth.actor && s.permissionName === session.auth.permission)
+                const isCurrent = (session && session.auth && s.actor === session.auth.actor && s.permission === session.auth.permission)
                 const key = Object.values(s).join('-')
                 return (
                   <Table.Row key={key}>
@@ -27,16 +27,16 @@ class Debug extends Component {
                         color={isCurrent ? "blue" : "green"}
                         content={isCurrent ? "In Use" : "Use Account"}
                         disabled={isCurrent}
-                        onClick={() => this.props.setSession(s.chainId, s.accountName, s.permissionName)}
+                        onClick={() => this.props.setSession(s)}
                       />
                     </Table.Cell>
-                    <Table.Cell>{s.accountName}</Table.Cell>
-                    <Table.Cell>{s.permissionName}</Table.Cell>
+                    <Table.Cell>{s.actor}</Table.Cell>
+                    <Table.Cell>{s.permission}</Table.Cell>
                     <Table.Cell collapsing>
                       <Button
                         color="red"
                         icon="trash"
-                        onClick={() => this.props.removeSession(s.chainId, s.accountName, s.permissionName)}
+                        onClick={() => this.props.removeSession(s)}
                       />
                     </Table.Cell>
                   </Table.Row>

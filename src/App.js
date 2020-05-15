@@ -127,9 +127,9 @@ class App extends Component {
     response: undefined,
   })
   // React State Helper to update sessions while switching accounts
-  setSession = (chainId, accountName, permissionName) => {
-    // Restore a specific session based on chainId, accountName, and permissionName
-    const session = this.link.restore(chainId, accountName, permissionName)
+  setSession = async (auth) => {
+    // Restore a specific session based on chainId, actor, and permission
+    const session = await this.link.restoreSession('anchor-link-demo-multipass', auth)
     // Update application state with new session and reset response data
     this.setState({
       response: undefined,
@@ -137,17 +137,17 @@ class App extends Component {
     })
   }
   // React State Helper to remove/delete a session
-  removeSession = (chainId, accountName, permissionName) => {
+  removeSession = async (auth) => {
     // Remove from local storage based on chainId, accountName, and permissionName
-    this.link.remove(chainId, accountName, permissionName)
+    await this.link.removeSession('anchor-link-demo-multipass', auth)
     // Remove from local application state
     const { session, sessions } = this.state
     // If this was the currently active account, remove the session
-    if (session && session.auth.actor === accountName && session.auth.permission === permissionName) {
+    if (session && session.auth.actor === auth.actor && session.auth.permission === auth.permission) {
       this.setState({ session: undefined });
     }
     this.setState({
-      sessions: sessions.filter(s => !(s.chainId === chainId && s.accountName === accountName && s.permissionName === permissionName))
+      sessions: sessions.filter(s => !(s.actor === auth.actor && s.permission === auth.permission))
     })
   }
   render() {
