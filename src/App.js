@@ -95,7 +95,7 @@ class App extends Component {
       // Reset our response state to clear any previous transaction data
       this.setState({ response: undefined })
       // Call transact on the session
-      const result = await session.transact({
+      const response = await session.transact({
         actions: [
           {
             account: 'eosio',
@@ -108,6 +108,7 @@ class App extends Component {
             }
           }
         ],
+      }, {
         // Optional: Whether anchor-link should broadcast this transaction
         //    For this demo, anchor-link will not broadcast the transaction after receiving it
         broadcast: false,
@@ -115,8 +116,8 @@ class App extends Component {
         blocksBehind: 3,
         expireSeconds: 120,
       })
-      // Update application state with the results of the transaction
-      this.setState({ response: result })
+      // Update application state with the responses of the transaction
+      this.setState({ response })
     } catch(e) {
       console.log(e)
     }
