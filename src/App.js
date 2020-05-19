@@ -13,7 +13,6 @@ import blockchains from './assets/blockchains.json'
 import Accounts from './Accounts.js'
 import Blockchains from './Blockchains.js'
 import Response from './Response.js'
-import ExampleSign from './examples/Sign'
 
 class App extends Component {
   // Demo initialization code
@@ -207,8 +206,6 @@ class App extends Component {
           }
         </Segment>
         <Segment attached="bottom" padded>
-          <Header>Sample Code</Header>
-          <ExampleSign />
           {(response)
             ? (
               <Response
