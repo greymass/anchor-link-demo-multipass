@@ -126,6 +126,10 @@ class App extends Component {
   setChainId = (e, { value }) => this.setState({
     chainId: value,
     response: undefined,
+  }, () => {
+    const searchParams = new URLSearchParams(window.location.search)
+    searchParams.set('chainId', value)
+    window.history.pushState(null, null, `?${searchParams.toString()}`)
   })
   // React State Helper to update sessions while switching accounts
   setSession = async (auth) => {
