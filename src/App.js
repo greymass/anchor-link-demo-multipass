@@ -98,7 +98,7 @@ class App extends Component {
     try {
       // Reset our response state to clear any previous transaction data
       this.setState({ response: undefined })
-      // Call transact on the session
+      // Call transact on the session (compatible with eosjs.transact)
       const response = await session.transact({
         actions: [
           {
@@ -113,12 +113,18 @@ class App extends Component {
           }
         ],
       }, {
-        // Optional: Whether anchor-link should broadcast this transaction
-        //    For this demo, anchor-link will not broadcast the transaction after receiving it
+        // Optional: Prevent anchor-link from broadcasting this transaction (default: True)
+        //
+        //    The wallet/signer connected to this app will NOT broadcast the transaction
+        //    as is defined by the anchor-link protocol. Broadcasting is the responsibility
+        //    of anchor-link running inside an application (like this demo).
+        //
+        //    For this demo specifically we do NOT want the transaction to ever be broadcast
+        //    to the blockchain, so we're disabling it here.
+        //
+        //    For all normal applications using anchor-link, you can omit this.
+        //
         broadcast: false,
-        // Optional: TAPOS values
-        blocksBehind: 3,
-        expireSeconds: 120,
       })
       // Update application state with the responses of the transaction
       this.setState({ response })
