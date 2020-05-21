@@ -1,0 +1,2 @@
+(this["webpackJsonpanchor-link-demo-multipass"]=this["webpackJsonpanchor-link-demo-multipass"]||[]).push([[45],{632:function(m,s,t){"use strict";function i(m){m.languages.git={comment:/^#.*/m,deleted:/^[-\u2013].*/m,inserted:/^\+.*/m,string:/("|')(?:\\.|(?!\1)[^\\\r\n])*\1/m,command:{pattern:/^.*\$ git .*$/m,inside:{parameter:/\s--?\w+/m}},coord:/^@@.*@@$/m,commit_sha1:/^commit \w{40}$/m}}m.exports=i,i.displayName="git",i.aliases=[]}}]);
+//# sourceMappingURL=react-syntax-highlighter_languages_refractor_git.97f17792.chunk.js.map
