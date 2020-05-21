@@ -1,15 +1,14 @@
 {
   "name": "anchor-link-demo-multipass",
   "homepage": "https://greymass.github.io/anchor-link-demo-multipass",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "anchor-link": "^1.2.0",
-    "anchor-link-browser-transport": "1.0.3",
-    "anchor-link-localstorage-persist": "^0.2.0",
+    "anchor-link": "^2.0.0",
+    "anchor-link-browser-transport": "^2.0.0",
     "gh-pages": "^2.2.0",
     "react": "^16.13.1",
     "react-code-blocks": "^0.0.7",

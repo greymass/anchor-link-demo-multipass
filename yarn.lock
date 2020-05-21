@@ -1903,24 +1903,19 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-anchor-link-browser-transport@1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/anchor-link-browser-transport/-/anchor-link-browser-transport-1.0.3.tgz#8b006dc93188d7f5b5c985f75c9849deb55f7ffa"
-  integrity sha512-lYm3zpK+IQfvigCJVHbv7gj3F8YdtdG1UoTs8QLTl+vilFUkFc3iq14zGrT69/Vg0dLES33J41Z7+15eJr6MRQ==
+anchor-link-browser-transport@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/anchor-link-browser-transport/-/anchor-link-browser-transport-2.0.0.tgz#def18717d182ff31a03e854bd415f048738a3e2b"
+  integrity sha512-uJnbgMPndNdJCc8lcehMHBODGA79jXoG2aT0apTIxqrfG8f5XfadSYGLP4ZigikaltHSJzum2rHS/2rjmYATmw==
   dependencies:
     qrcode "^1.4.4"
 
-anchor-link-localstorage-persist@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/anchor-link-localstorage-persist/-/anchor-link-localstorage-persist-0.1.0.tgz#b98e2331adbfaed69a8ac04b4d4a558c99271a6b"
-  integrity sha512-yDtRBZebPI9Avo38yMjTzeiiFFCkS1d4r5NFtdse5FfyZBkZtmPQs5N+dBJOSCADosoE9phOlikG/LzzrWUHmg==
-
-anchor-link@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/anchor-link/-/anchor-link-1.0.4.tgz#962582e5a2fb70208e1b3e6fc917528d539b0ea1"
-  integrity sha512-3tRzCpm2cMflzTth+1TAAFBVMy2JCLMbiNa3uohd4XmbIz6JK4kwunpa8KD3nso61KUooW58Bf1hxlH7lRpIsg==
+anchor-link@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/anchor-link/-/anchor-link-2.0.0.tgz#94427cf12dd63432d9bd2713a3f3fb78b23d7a17"
+  integrity sha512-kZupmZrJX1unyyU/mfQ+suKrEY7BlKMRzrInkx+2biHNNejez/yzUh29cA34VPhZp4AwlW2Y+KlC2Y4lDFgcuw==
   dependencies:
-    eosio-signing-request "^1.1.1"
+    eosio-signing-request "^1.2.0"
     eosjs "^20.0.0"
     eosjs-ecc "^4.0.7"
     fetch-ponyfill "^6.1.0"
@@ -4112,10 +4107,10 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
 
-eosio-signing-request@^1.1.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/eosio-signing-request/-/eosio-signing-request-1.1.4.tgz#6e37b92316450bc4bc3a54b9109ef7bb71ddba90"
-  integrity sha512-gJMp5t6LSW8R8Ayk2Rli+K8RBNV3Fb47XKGHqDnzsogcrTIVfsZ4GMTe4novqu+4kRx6Vblc1J/GNVy8LOiXVg==
+eosio-signing-request@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/eosio-signing-request/-/eosio-signing-request-1.2.0.tgz#543922b4bfb60c5b07e350c5391e1599555fb0fa"
+  integrity sha512-1sINQYrj5MkLg8MEPdBPOU/opJEZVGL4xF29ph1htvb6C6kpE+CZx5tEvBBwYWL5PK4T8VRZzhi8xSQg5j7sZw==
   dependencies:
     eosjs "^20.0.0"
     fast-sha256 "^1.1.1"
