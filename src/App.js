@@ -4,7 +4,6 @@ import { Button, Container, Header, Segment } from 'semantic-ui-react'
 
 // The required anchor-link includes
 import AnchorLink from 'anchor-link'
-import AnchorLinkLocalStoragePersist from 'anchor-link-localstorage-persist'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 
 // Optional interfaces to import from anchor-link
@@ -73,8 +72,6 @@ class App extends Component {
       rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
-      // Configure the persistence plugin
-      storage: new AnchorLinkLocalStoragePersist(),
       // Pass in the browser transport
       transport: new AnchorLinkBrowserTransport({ requestStatus: false }),
     })
