@@ -12,17 +12,6 @@ class Transaction extends Component {
     const { response } = this.props
     const tests = [
       {
-        name: "Broadcast status returned by signer",
-        desc: "The signer has not broadcast the transaction.",
-        test: (r) => r.wasBroadcast === false,
-        data: (r) => {
-          if (r.wasBroadcast === undefined) {
-            return 'No indication of whether or not the response was broadcast exists on the response.'
-          }
-          return r.wasBroadcast
-        },
-      },
-      {
         name: "Signatures returned by signer",
         desc: "The signer has returned signatures in its response.",
         test: (r) => !!(r.signatures && r.signatures.length >= 1),
