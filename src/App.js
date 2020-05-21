@@ -74,7 +74,10 @@ class App extends Component {
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
       // Pass in the browser transport
-      transport: new AnchorLinkBrowserTransport({ requestStatus: false }),
+      transport: new AnchorLinkBrowserTransport({
+        // Optional: Disable the browser transport success/failure messages to serve your own
+        requestStatus: false
+      }),
     })
     // Attempt to restore the last used session for this particular chainId
     const session = await this.link.restoreSession('anchor-link-demo-multipass')
