@@ -51,6 +51,7 @@ class App extends Component {
       const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
       this.setState({
+        response: undefined,
         session: identity.session,
         sessions,
       })
