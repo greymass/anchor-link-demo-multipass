@@ -7,6 +7,9 @@ import AnchorLink from 'anchor-link'
 import AnchorLinkLocalStoragePersist from 'anchor-link-localstorage-persist'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 
+// Optional interfaces to import from anchor-link
+import { PermissionLevel } from 'anchor-link'
+
 // React components for this demo, not required
 import { find } from 'lodash'
 import blockchains from './assets/blockchains.json'
@@ -132,8 +135,8 @@ class App extends Component {
     window.history.pushState(null, null, `?${searchParams.toString()}`)
   })
   // React State Helper to update sessions while switching accounts
-  setSession = async (auth) => {
-    // Restore a specific session based on chainId, actor, and permission
+  setSession = async (auth:PermissionLevel) => {
+    // Restore a specific session based on an auth (e.g. {actor: 'foo', permission: 'bar'})
     const session = await this.link.restoreSession('anchor-link-demo-multipass', auth)
     // Update application state with new session and reset response data
     this.setState({
@@ -142,8 +145,8 @@ class App extends Component {
     })
   }
   // React State Helper to remove/delete a session
-  removeSession = async (auth) => {
-    // Remove from local storage based on chainId, accountName, and permissionName
+  removeSession = async (auth:PermissionLevel) => {
+    // Remove from local storage based on an auth (e.g. {actor: 'foo', permission: 'bar'})
     await this.link.removeSession('anchor-link-demo-multipass', auth)
     // Remove from local application state
     const { session, sessions } = this.state
