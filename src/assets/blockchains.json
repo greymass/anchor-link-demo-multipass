@@ -1,5 +1,14 @@
 [
   {
+     "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+     "name": "EOS",
+     "rpcEndpoints": [{
+       "protocol": "https",
+       "host": "eos.eosn.io",
+       "port": 443
+     }]
+   },
+  {
      "chainId": "0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72",
      "name": "Block.one (Testnet)",
      "rpcEndpoints": [{

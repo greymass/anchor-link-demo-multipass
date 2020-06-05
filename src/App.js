@@ -69,6 +69,14 @@ class App extends Component {
     this.link = new AnchorLink({
       // Specify the target chainId
       chainId,
+      // Specify a cosigner, if any. This is the generic Fuel cosigner configuration
+      cosigner: {
+        account: "greymassfuel",
+        permission: "cosign",
+        contract: "greymassnoop",
+        method: "noop",
+        url: "https://eos.greymass.com/v1/fuel/get_signature",
+      },
       // Set the API to use
       rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
       // Optional: Set the callback service, which will default to https://cb.anchor.link
