@@ -14,6 +14,7 @@ import { find } from 'lodash'
 import blockchains from './assets/blockchains.json'
 import Accounts from './Accounts.js'
 import Blockchains from './Blockchains.js'
+import SigningError from './SigningError.js'
 import Response from './Response.js'
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
     const chainId = params.get('chainId') || '0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72'
     // Set initial blank application state
     this.state = {
+      error: undefined,
       response: undefined,
       session: undefined,
       sessions: [],
@@ -51,6 +53,7 @@ class App extends Component {
       const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
       this.setState({
+        error: undefined,
         response: undefined,
         session: identity.session,
         sessions,
@@ -72,6 +75,7 @@ class App extends Component {
       // Specify a cosigner, if any. This is the generic Fuel cosigner configuration
       cosigner: {
         account: "greymassfuel",
+        always: true,
         permission: "cosign",
         contract: "greymassnoop",
         method: "noop",
@@ -94,6 +98,7 @@ class App extends Component {
     // Save current chainId and session into application state
     this.setState({
       chainId,
+      error: undefined,
       session,
       sessions,
     })
@@ -106,20 +111,19 @@ class App extends Component {
     try {
       // Reset our response state to clear any previous transaction data
       this.setState({ response: undefined })
+      const action = {
+        account: 'eosio',
+        name: 'voteproducer',
+        authorization: [session.auth],
+        data: {
+          producers: [],
+          proxy: 'greymassvote',
+          voter: session.auth.actor
+        }
+      }
       // Call transact on the session (compatible with eosjs.transact)
       const response = await session.transact({
-        actions: [
-          {
-            account: 'eosio',
-            name: 'voteproducer',
-            authorization: [session.auth],
-            data: {
-              producers: [],
-              proxy: 'greymassvote',
-              voter: session.auth.actor
-            }
-          }
-        ],
+        actions: [action]
       }, {
         // Optional: Prevent anchor-link from broadcasting this transaction (default: True)
         //
@@ -132,17 +136,22 @@ class App extends Component {
         //
         //    For all normal applications using anchor-link, you can omit this.
         //
-        broadcast: false,
+        // broadcast: false,
       })
       // Update application state with the responses of the transaction
-      this.setState({ response })
+      this.setState({
+        error: undefined,
+        response,
+      })
     } catch(e) {
       console.log(e)
+      this.setState({ error: e })
     }
   }
   // React State Helper to update chainId while switching blockchains
   setChainId = (e, { value }) => this.setState({
     chainId: value,
+    error: undefined,
     response: undefined,
   }, () => {
     const searchParams = new URLSearchParams(window.location.search)
@@ -155,6 +164,7 @@ class App extends Component {
     const session = await this.link.restoreSession('anchor-link-demo-multipass', auth)
     // Update application state with new session and reset response data
     this.setState({
+      error: undefined,
       response: undefined,
       session,
     })
@@ -177,6 +187,7 @@ class App extends Component {
     // Load state for rendering
     const {
       chainId,
+      error,
       session,
       sessions,
       response,
@@ -229,6 +240,14 @@ class App extends Component {
           }
         </Segment>
         <Segment attached="bottom" padded>
+          {(error)
+            ? (
+              <SigningError
+                error={error}
+              />
+            )
+            : false
+          }
           {(response)
             ? (
               <Response
