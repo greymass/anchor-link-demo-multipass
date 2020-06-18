@@ -72,23 +72,17 @@ class App extends Component {
     this.link = new AnchorLink({
       // Specify the target chainId
       chainId,
-      // Specify a cosigner, if any. This is the generic Fuel cosigner configuration
-      cosigner: {
-        account: "greymassfuel",
-        always: true,
-        permission: "cosign",
-        contract: "greymassnoop",
-        method: "noop",
-        url: "https://eos.greymass.com/v1/fuel/get_signature",
-      },
       // Set the API to use
       rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
       // Pass in the browser transport
       transport: new AnchorLinkBrowserTransport({
+        // Optional: Fuel by default is used to sign transactions for users with low resources.
+        //            This can be disabled by setting disableGreymassFuel to true.
+        // disableGreymassFuel: true,
         // Optional: Disable the browser transport success/failure messages to serve your own
-        requestStatus: false
+        // requestStatus: false
       }),
     })
     // Attempt to restore the last used session for this particular chainId
@@ -117,7 +111,8 @@ class App extends Component {
         authorization: [session.auth],
         data: {
           producers: [],
-          proxy: 'greymassvote',
+          // proxy: 'greymassvote',
+          proxy: 'waaaaaaaaaat',
           voter: session.auth.actor
         }
       }
@@ -224,7 +219,7 @@ class App extends Component {
             removeSession={this.removeSession}
           />
         </Segment>
-        <Segment attached padded>
+        <Segment attached padded textAlign="center">
           <Header>Transact with anchor-link</Header>
           <Button
             content="Sign Test Transaction"
