@@ -9,9 +9,6 @@ import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 // Optional interfaces to import from anchor-link
 import { PermissionLevel } from 'anchor-link'
 
-// ecc library for validation (optional)
-import ecc from 'eosjs-ecc'
-
 // React components for this demo, not required
 import { find } from 'lodash'
 import blockchains from './assets/blockchains.json'
@@ -51,28 +48,29 @@ class App extends Component {
     const { chainId } = this.state
     try {
       // Use the anchor-link login method with the chain id to establish a session
-      const identity = await this.link.login('anchor-link-demo-multipass', { chainId })
-      // (optional) pull values useful for identity proofs from the results of login 
-      const identityProofTransaction = identity.serializedTransaction
-      const identityProofSignature = identity.signatures[0]
-      const identityProofSignedWith = identity.signerKey
-      const identityProofBuffer = Buffer.concat([
-        Buffer.from(chainId, 'hex'),
-        Buffer.from(identityProofTransaction),
-        Buffer.alloc(32),
-      ])
+      const identity = await this.link.login('anchor-link-demo-multipass')
+      // (optional) pull values useful for identity proofs from the results of login
+      // const identityProofTransaction = identity.transaction
+      // const identityProofSignature = identity.signatures[0].toString()
+      // const identityProofSignedWith = identity.signerKey.toString()
+      // console.log()
+      // const identityProofBuffer = Buffer.concat([
+      //   Buffer.from(chainId, 'hex'),
+      //   Buffer.from(identityProofTransaction),
+      //   Buffer.alloc(32),
+      // ])
       // (optional) verify the user signature is valid to the identity being returned
-      const proofValid = ecc.verify(identityProofSignature, identityProofBuffer, identityProofSignedWith)
+      // const proofValid = ecc.verify(identityProofSignature, identityProofBuffer, identityProofSignedWith)
       // (optional) Retrieve the public key used during the proof
-      const proofKey = ecc.recover(identityProofSignature, identityProofBuffer)
+      // const proofKey = ecc.recover(identityProofSignature, identityProofBuffer)
       // Retrieve a list of all available sessions to update demo state
       const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
       this.setState({
         error: undefined,
         response: undefined,
-        proofKey,
-        proofValid,
+        // proofKey,
+        // proofValid,
         session: identity.session,
         sessions,
       })
