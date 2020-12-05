@@ -25,7 +25,7 @@ class App extends Component {
     // Add the ability to retrieve the chainId from the URL
     const search = window.location.search
     const params = new URLSearchParams(search)
-    const chainId = params.get('chainId') || '0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72'
+    const chainId = params.get('chainId') || '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840'
     const demoMode = !!params.get('demo')
     // Set initial blank application state
     this.state = {
