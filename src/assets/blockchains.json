@@ -1,5 +1,14 @@
 [
   {
+     "chainId": "21dcae42c0182200e93f954a074011f9048a7624c6fe81d3c9541a614a88bd1c",
+     "name": "FIO",
+     "rpcEndpoints": [{
+       "protocol": "https",
+       "host": "fio.greymass.com",
+       "port": 443
+     }]
+  },
+  {
      "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
      "name": "EOS",
      "rpcEndpoints": [{
@@ -7,9 +16,9 @@
        "host": "eos.eosn.io",
        "port": 443
      }]
-   },
+  },
   {
-     "chainId": "0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72",
+     "chainId": "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
      "name": "Block.one (Testnet)",
      "rpcEndpoints": [{
        "protocol": "https",
