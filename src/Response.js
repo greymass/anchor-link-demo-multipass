@@ -3,9 +3,9 @@ import { Header, List, Segment } from 'semantic-ui-react';
 import ReactJson from 'react-json-view';
 import { CodeBlock, monokai } from 'react-code-blocks'
 
-import { Serialize } from 'eosjs'
-const transactionAbi = require('eosjs/src/transaction.abi.json')
-const transactionTypes: Map<string, Serialize.Type> = Serialize.getTypesFromAbi(Serialize.createInitialTypes(), transactionAbi)
+// import { Serialize } from 'eosjs'
+// const transactionAbi = require('eosjs/src/transaction.abi.json')
+// const transactionTypes: Map<string, Serialize.Type> = Serialize.getTypesFromAbi(Serialize.createInitialTypes(), transactionAbi)
 
 class Transaction extends Component {
   testResponse = () => {
@@ -33,26 +33,26 @@ class Transaction extends Component {
         name: "Serialized transaction successfully deserialized",
         desc: "The serialized transaction the signer returned can be successfully deserialized.",
         test: (r) => {
-          try {
-            const tx = this.deserialize(r.serializedTransaction)
-            return (
-              tx.expiration
-              && tx.actions
-              && tx.actions.length > 0
-              && tx.ref_block_num > 0
-              && tx.ref_block_prefix > 0
-            )
-          } catch (e) {
-            return false
-          }
+          // try {
+          //   const tx = this.deserialize(r.serializedTransaction)
+          //   return (
+          //     tx.expiration
+          //     && tx.actions
+          //     && tx.actions.length > 0
+          //     && tx.ref_block_num > 0
+          //     && tx.ref_block_prefix > 0
+          //   )
+          // } catch (e) {
+          //   return false
+          // }
         },
         data: (r) => {
-          try {
-            const tx = this.deserialize(r.serializedTransaction)
-            return JSON.stringify(tx)
-          } catch (e) {
-            return JSON.stringify({})
-          }
+          // try {
+          //   const tx = this.deserialize(r.serializedTransaction)
+          //   return JSON.stringify(tx)
+          // } catch (e) {
+          //   return JSON.stringify({})
+          // }
         }
       },
     ]
@@ -65,11 +65,11 @@ class Transaction extends Component {
     })
   }
   deserialize = (serialized) => {
-    const buffer = new Serialize.SerialBuffer({
-      array: serialized,
-    })
-    const type = transactionTypes.get('transaction')
-    return type.deserialize(buffer)
+    // const buffer = new Serialize.SerialBuffer({
+    //   array: serialized,
+    // })
+    // const type = transactionTypes.get('transaction')
+    // return type.deserialize(buffer)
   }
   render() {
     const { response } = this.props;
