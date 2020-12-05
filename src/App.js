@@ -81,6 +81,7 @@ class App extends Component {
       console.log(e)
     }
   }
+  toSimpleObject = (v) => JSON.parse(JSON.stringify(v))
   establishLink = async () => {
     // Load the current chainId from state
     const { chainId } = this.state
