@@ -153,7 +153,7 @@ class App extends Component {
         //
         //    For all normal applications using anchor-link, you can omit this.
         //
-        // broadcast: false,
+        broadcast: false,
       })
       // Update application state with the responses of the transaction
       this.setState({
