@@ -102,6 +102,8 @@ class App extends Component {
         // disableGreymassFuel: true,
         // Optional: Disable the browser transport success/failure messages to serve your own
         // requestStatus: false
+        // Optional: Referral account for Greymass Fuel
+        fuelReferrer: 'jesta.x'
       }),
     })
     // Attempt to restore the last used session for this particular chainId
