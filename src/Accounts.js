@@ -18,7 +18,7 @@ class Debug extends Component {
           ? (
             <Table.Body>
               {sessions.map((s) => {
-                const isCurrent = (session && session.auth && s.actor === session.auth.actor && s.permission === session.auth.permission)
+                const isCurrent = (session && session.auth && s.actor === session.auth.actor.toString() && s.permission === session.auth.permission.toString())
                 const key = Object.values(s).join('-')
                 return (
                   <Table.Row key={key}>
