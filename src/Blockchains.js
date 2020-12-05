@@ -11,7 +11,8 @@ import waxLogo from './assets/wax.png';
 import blockchains from './assets/blockchains.json';
 
 const logoMap = {
-  "0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72": eosLogo,
+  "21dcae42c0182200e93f954a074011f9048a7624c6fe81d3c9541a614a88bd1c": fioLogo,
+  "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f": eosLogo,
   "b20901380af44ef59c5918439a1f9a41d83669020319a80574b804a5f95cbd7e": fioLogo,
   "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473": jungleLogo,
   "2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840": jungleLogo,
