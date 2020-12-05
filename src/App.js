@@ -14,6 +14,7 @@ import { find } from 'lodash'
 import blockchains from './assets/blockchains.json'
 import Accounts from './Accounts.js'
 import Blockchains from './Blockchains.js'
+import DemoApp from './Demo.js'
 import SigningError from './SigningError.js'
 import Response from './Response.js'
 
@@ -25,8 +26,10 @@ class App extends Component {
     const search = window.location.search
     const params = new URLSearchParams(search)
     const chainId = params.get('chainId') || '0db13ab9b321c37c0ba8481cb4681c2788b622c3abfd1f12f0e5353d44ba6e72'
+    const demoMode = !!params.get('demo')
     // Set initial blank application state
     this.state = {
+      demoMode,
       error: undefined,
       response: undefined,
       session: undefined,
@@ -198,6 +201,7 @@ class App extends Component {
     // Load state for rendering
     const {
       chainId,
+      demoMode,
       error,
       session,
       sessions,
@@ -205,6 +209,21 @@ class App extends Component {
     } = this.state
     // Find the blockchain information (rpc, name, etc) for UI purposes
     const chain = find(blockchains, { chainId })
+    // If the demo parameter is set in the URL, render a nicer looking demo app
+    if (demoMode) {
+      return (
+        <DemoApp
+          addAccount={this.addAccount}
+          chain={chain}
+          loggedIn={!session}
+          session={session}
+          sessions={sessions}
+          setSession={this.setSession}
+          signTransaction={this.signTransaction}
+          removeSession={this.removeSession}
+        />
+      )
+    }
     // Return the UI
     return (
       <Container
