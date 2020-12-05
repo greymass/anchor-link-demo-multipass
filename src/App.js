@@ -125,14 +125,17 @@ class App extends Component {
       // Reset our response state to clear any previous transaction data
       this.setState({ response: undefined })
       const action = {
-        account: 'eosio',
-        name: 'voteproducer',
-        authorization: [session.auth],
+        account: 'eosio.token',
+        name: 'transfer',
+        authorization: [{
+          actor: String(session.auth.actor),
+          permission: String(session.auth.permission),
+        }],
         data: {
-          producers: [],
-          // proxy: 'greymassvote',
-          proxy: 'waaaaaaaaaat',
-          voter: session.auth.actor
+          from: String(session.auth.actor),
+          to: 'teamgreymass',
+          quantity: '0.0001 EOS',
+          memo: '',
         }
       }
       // Call transact on the session (compatible with eosjs.transact)
