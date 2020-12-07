@@ -7,7 +7,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "anchor-link": "^3.0.0-beta16",
+    "anchor-link": "^3.0.0-beta17",
     "anchor-link-browser-transport": "^3.0.0-beta5",
     "gh-pages": "^2.2.0",
     "react": "^16.13.1",
