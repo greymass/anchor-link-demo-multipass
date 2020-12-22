@@ -1168,10 +1168,10 @@
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.7.5.tgz#77211291c1900a700b8a78cfafda3160d76949ed"
   integrity sha512-OWORNpfjMsSSUBVrRBVGECkhWcULOAJz9ZW8uK9qgxD+87M7jHRcvh/A96XXNhXTLmKcoYSQtBEX7lHMO7YRwg==
 
-"@greymass/eosio@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@greymass/eosio/-/eosio-0.1.4.tgz#726ff913eb594393fbe10414a25a975a9108faa8"
-  integrity sha512-fLWq201TTBi5uZGjr1QCX4G1ka2RiMWcLAgTH5xytfsS/djqgJg0f+ZwHqm6eUO6INpWul00IosasAglsNv+uQ==
+"@greymass/eosio@^0.1.5", "@greymass/eosio@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@greymass/eosio/-/eosio-0.1.8.tgz#be2794efebc2c0bed078a275e53dcc7929786ef3"
+  integrity sha512-OotCpFZjVUj/CKgY14M/5VsS2Na+lysNF4nThGqdVNAPO1CaSZUPLpPoVAdOKS0I6p0rBD3TxarPp2s8OdmR+Q==
   dependencies:
     bn.js "^4.4.0"
     brorand "^1.0.1"
@@ -2046,26 +2046,26 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
-anchor-link-browser-transport@^3.0.0-beta5:
-  version "3.0.0-beta6"
-  resolved "https://registry.yarnpkg.com/anchor-link-browser-transport/-/anchor-link-browser-transport-3.0.0-beta6.tgz#29d1dcbb7c28ff8306af7744a29be849a1fe86c8"
-  integrity sha512-Mhz3UmJYBdxcUB5qn4pjGrpxsEfybmDOayhJfFMXf7zqfRpcjD9oTbTNKOICaaZUJPZKX1JDa8j8QwApekDVyw==
+anchor-link-browser-transport@next:
+  version "3.0.0-rc.5"
+  resolved "https://registry.yarnpkg.com/anchor-link-browser-transport/-/anchor-link-browser-transport-3.0.0-rc.5.tgz#cefe8de2d072ab0f8dd40b60364ae0a742cf70fa"
+  integrity sha512-Wmq21qgyhlxt6+08a5TXJgtkg7yoXVEFqA/zzZoZl99NqFIMP6HFaV0wdUrMPeYFsJZ8FAuyP45hMvvnC4Th0Q==
   dependencies:
     tslib "^2.0.3"
 
-anchor-link@^3.0.0-beta17:
-  version "3.0.0-beta17"
-  resolved "https://registry.yarnpkg.com/anchor-link/-/anchor-link-3.0.0-beta17.tgz#922f5ddbf6550a503e3d1992d6f6e21b01aaf3e2"
-  integrity sha512-AWCW/bIJevHOrCdumXAo3POn6aeJub2Ghmgy/+J8Q2Cbeavz8HrEBPets8C9Zcag9vXdUhCcbqAS8g7n7IhQeQ==
+anchor-link@next:
+  version "3.0.0-rc.2"
+  resolved "https://registry.yarnpkg.com/anchor-link/-/anchor-link-3.0.0-rc.2.tgz#ab7719ddb03168027c47452e132eecd3dbc9638b"
+  integrity sha512-8y/lDxHhf4S+hE5FLGaTTb2+4ncmOmMHofZM89eEo0k3mEvlbHQpJKtXiJEmUxh3D3470WvOG1s7Jvl4Bs592Q==
   dependencies:
-    "@greymass/eosio" "^0.1.4"
+    "@greymass/eosio" "^0.1.8"
     asmcrypto.js "^2.3.2"
-    eosio-signing-request next
+    eosio-signing-request "^2.0.0-rc"
     fetch-ponyfill "^7.0.0"
     isomorphic-ws "^4.0.1"
     pako "^2.0.2"
     tslib "^2.0.3"
-    uuid "^8.3.1"
+    uuid "^8.3.2"
     ws "^7.4.1"
 
 ansi-colors@^3.0.0:
@@ -4219,12 +4219,12 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.1.0.tgz#992d3129cf7df6870b96c57858c249a120f8b8b5"
   integrity sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==
 
-eosio-signing-request@next:
-  version "2.0.0-beta16"
-  resolved "https://registry.yarnpkg.com/eosio-signing-request/-/eosio-signing-request-2.0.0-beta16.tgz#34dff070df64cbec5b6e49e233f16fec40067daf"
-  integrity sha512-geSFBwOIO1C3ljXRoXRYOOEZqWc887ahAIYumrWMAAppw8R7RbF6BYJ+6+YAZXz11gSKNY2wcA+ajlBbjKbEmQ==
+eosio-signing-request@^2.0.0-rc:
+  version "2.0.0-rc.1"
+  resolved "https://registry.yarnpkg.com/eosio-signing-request/-/eosio-signing-request-2.0.0-rc.1.tgz#6ec559fdae0aafe712490cf0966486ad48f540c4"
+  integrity sha512-qY7X5PJBgLSJ91f4wTwhdOxiTHTuHtrgqHN+ySGW0PwTlAyOMRfSOXRw2KorKOwEoQ6dDB4gUfX6tu+D42wmMw==
   dependencies:
-    "@greymass/eosio" "^0.1.4"
+    "@greymass/eosio" "^0.1.5"
     tslib "^2.0.3"
 
 errno@^0.1.3, errno@~0.1.7:
@@ -11189,10 +11189,10 @@ uuid@^3.0.1, uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.3.1:
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
-  integrity sha512-FOmRr+FmWEIG8uhZv6C2bTgEVXsHk08kE7mPlrBbEe+c3r9pjceVPgupIfNIhc4yx55H69OXANrUaSuu9eInKg==
+uuid@^8.3.2:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8-compile-cache@^2.0.3:
   version "2.2.0"
