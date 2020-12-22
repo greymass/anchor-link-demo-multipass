@@ -15,6 +15,7 @@ import blockchains from './assets/blockchains.json'
 import Accounts from './Accounts.js'
 import Blockchains from './Blockchains.js'
 import DemoApp from './Demo.js'
+import Demo2App from './Demo2.js'
 import SigningError from './SigningError.js'
 import Response from './Response.js'
 
@@ -27,9 +28,11 @@ class App extends Component {
     const params = new URLSearchParams(search)
     const chainId = params.get('chainId') || '2a02a0053e5a8cf73a56ba0fda11e4d92e0238a4a2aa74fccf46d5a910746840'
     const demoMode = !!params.get('demo')
+    const demo2Mode = !!params.get('demo2')
     // Set initial blank application state
     this.state = {
       demoMode,
+      demo2Mode,
       error: undefined,
       response: undefined,
       session: undefined,
@@ -202,6 +205,7 @@ class App extends Component {
     const {
       chainId,
       demoMode,
+      demo2Mode,
       error,
       session,
       sessions,
@@ -213,6 +217,20 @@ class App extends Component {
     if (demoMode) {
       return (
         <DemoApp
+          addAccount={this.addAccount}
+          chain={chain}
+          loggedIn={!session}
+          session={session}
+          sessions={sessions}
+          setSession={this.setSession}
+          signTransaction={this.signTransaction}
+          removeSession={this.removeSession}
+        />
+      )
+    }
+    if (demo2Mode) {
+      return (
+        <Demo2App
           addAccount={this.addAccount}
           chain={chain}
           loggedIn={!session}
