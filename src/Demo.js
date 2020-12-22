@@ -44,7 +44,7 @@ class Demo extends Component {
                       basic
                       content={`Sign out`}
                       icon="log out"
-                      onClick={() => this.props.removeSession(session.auth)}
+                      onClick={() => this.props.removeSession(session.auth, session.chainId)}
                     />
                   </Segment>
                 )
@@ -65,19 +65,19 @@ class Demo extends Component {
               {(session)
                 ? (
                   <Segment attached="bottom" padded>
-                    <p>Sample form to send EOS tokens</p>
+                    <p>Sample form to send EOS tokens (will NOT actually send)</p>
                     <Form>
                       <Form.Field>
                         <label>To:</label>
-                        <Form.Input value="teamgreymass" />
+                        <Form.Input disabled value="teamgreymass" />
                       </Form.Field>
                       <Form.Field>
                         <label>Amount:</label>
-                        <Form.Input value="0.0001" />
+                        <Form.Input disabled value="0.0001" />
                       </Form.Field>
                       <Form.Field>
                         <label>Memo:</label>
-                        <Form.Input />
+                        <Form.Input disabled />
                       </Form.Field>
                     </Form>
                     <Button
