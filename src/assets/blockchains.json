@@ -1,19 +1,19 @@
 [
   {
-     "chainId": "21dcae42c0182200e93f954a074011f9048a7624c6fe81d3c9541a614a88bd1c",
-     "name": "FIO",
-     "rpcEndpoints": [{
-       "protocol": "https",
-       "host": "fio.greymass.com",
-       "port": 443
-     }]
-  },
-  {
      "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
      "name": "EOS",
      "rpcEndpoints": [{
        "protocol": "https",
        "host": "eos.eosn.io",
+       "port": 443
+     }]
+  },
+  {
+     "chainId": "21dcae42c0182200e93f954a074011f9048a7624c6fe81d3c9541a614a88bd1c",
+     "name": "FIO",
+     "rpcEndpoints": [{
+       "protocol": "https",
+       "host": "fio.greymass.com",
        "port": 443
      }]
   },

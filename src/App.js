@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Button, Container, Header, Segment } from 'semantic-ui-react'
 
 // The required anchor-link includes
-import AnchorLink from 'anchor-link'
+import AnchorLink, {LinkSession} from 'anchor-link'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 
 // Optional interfaces to import from anchor-link
@@ -52,20 +52,6 @@ class App extends Component {
     try {
       // Use the anchor-link login method with the chain id to establish a session
       const identity = await this.link.login('anchor-link-demo-multipass')
-      // (optional) pull values useful for identity proofs from the results of login
-      // const identityProofTransaction = identity.transaction
-      // const identityProofSignature = identity.signatures[0].toString()
-      // const identityProofSignedWith = identity.signerKey.toString()
-      // console.log()
-      // const identityProofBuffer = Buffer.concat([
-      //   Buffer.from(chainId, 'hex'),
-      //   Buffer.from(identityProofTransaction),
-      //   Buffer.alloc(32),
-      // ])
-      // (optional) verify the user signature is valid to the identity being returned
-      // const proofValid = ecc.verify(identityProofSignature, identityProofBuffer, identityProofSignedWith)
-      // (optional) Retrieve the public key used during the proof
-      // const proofKey = ecc.recover(identityProofSignature, identityProofBuffer)
       // Retrieve a list of all available sessions to update demo state
       const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
@@ -83,28 +69,37 @@ class App extends Component {
   }
   toSimpleObject = (v) => JSON.parse(JSON.stringify(v))
   establishLink = async () => {
-    // Load the current chainId from state
-    const { chainId } = this.state
-    // Find the blockchain and retrieve the appropriate API endpoint for the demo
-    const blockchain = find(blockchains, { chainId })
-    const rpc = blockchain.rpcEndpoints[0]
+    /*
+      Specify the blockchains that are available to use within this application.
+
+      The format is an array of chain definitions:
+
+      {
+        chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+        nodeUrl: "https://eos.greymass.com"
+      }
+
+    */
+    const chains = blockchains.map(b => ({
+      chainId: b.chainId,
+      nodeUrl: `${b.rpcEndpoints[0].protocol}://${b.rpcEndpoints[0].host}:${b.rpcEndpoints[0].port}`
+    }))
+    console.log(chains)
     // Initialize anchor-link using the local storage persist module
     this.link = new AnchorLink({
       // Specify the target chainId
-      chainId,
-      // Set the API to use
-      rpc: `${rpc.protocol}://${rpc.host}:${rpc.port}`,
+      chains,
       // Optional: Set the callback service, which will default to https://cb.anchor.link
       service: 'https://cb.anchor.link',
       // Pass in the browser transport
       transport: new AnchorLinkBrowserTransport({
+        // Optional: Referral account for Greymass Fuel
+        fuelReferrer: 'jesta.x'
         // Optional: Fuel by default is used to sign transactions for users with low resources.
         //            This can be disabled by setting disableGreymassFuel to true.
         // disableGreymassFuel: true,
         // Optional: Disable the browser transport success/failure messages to serve your own
         // requestStatus: false
-        // Optional: Referral account for Greymass Fuel
-        fuelReferrer: 'jesta.x'
       }),
     })
     // Attempt to restore the last used session for this particular chainId
@@ -113,7 +108,6 @@ class App extends Component {
     const sessions = await this.link.listSessions('anchor-link-demo-multipass')
     // Save current chainId and session into application state
     this.setState({
-      chainId,
       error: undefined,
       session,
       sessions,
@@ -179,9 +173,9 @@ class App extends Component {
     window.history.pushState(null, null, `?${searchParams.toString()}`)
   })
   // React State Helper to update sessions while switching accounts
-  setSession = async (auth:PermissionLevel) => {
+  setSession = async (ls:LinkSession) => {
     // Restore a specific session based on an auth (e.g. {actor: 'foo', permission: 'bar'})
-    const session = await this.link.restoreSession('anchor-link-demo-multipass', auth)
+    const session = await this.link.restoreSession('anchor-link-demo-multipass', ls.auth, ls.chainId)
     // Update application state with new session and reset response data
     this.setState({
       error: undefined,
@@ -190,17 +184,17 @@ class App extends Component {
     })
   }
   // React State Helper to remove/delete a session
-  removeSession = async (auth:PermissionLevel) => {
+  removeSession = async (ls:LinkSession) => {
     // Remove from local storage based on an auth (e.g. {actor: 'foo', permission: 'bar'})
-    await this.link.removeSession('anchor-link-demo-multipass', auth)
+    await this.link.removeSession('anchor-link-demo-multipass', ls.auth, ls.chainId)
     // Remove from local application state
     const { session, sessions } = this.state
     // If this was the currently active account, remove the session
-    if (session && session.auth.actor === auth.actor && session.auth.permission === auth.permission) {
+    if (session && session.auth.actor.equals(ls.auth.actor) && session.auth.permission.equals(ls.auth.permission)) {
       this.setState({ session: undefined });
     }
     this.setState({
-      sessions: sessions.filter(s => !(s.actor === auth.actor && s.permission === auth.permission))
+      sessions: sessions.filter(s => !(s.auth.actor.equals(ls.auth.actor) && s.auth.permission.equals(ls.auth.permission)))
     })
   }
   render() {
@@ -242,13 +236,6 @@ class App extends Component {
             <p>Source code: <a href="https://github.com/greymass/anchor-link-demo-multipass">https://github.com/greymass/anchor-link-demo-multipass</a></p>
           </Header.Subheader>
         </Header>
-        <Segment attached padded>
-          <p>Switch to a specific blockchain.</p>
-          <Blockchains
-            chain={chain}
-            onChange={this.setChainId}
-          />
-        </Segment>
         <Segment attached padded>
           <Header>Available Accounts</Header>
           <Accounts

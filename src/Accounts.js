@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Table } from 'semantic-ui-react';
+import { find } from 'lodash'
+
+import blockchains from './assets/blockchains.json'
 
 class Debug extends Component {
   render() {
@@ -8,7 +11,8 @@ class Debug extends Component {
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell collapsing>{chain.name}</Table.HeaderCell>
+            <Table.HeaderCell collapsing></Table.HeaderCell>
+            <Table.HeaderCell>Blockchain</Table.HeaderCell>
             <Table.HeaderCell>Account</Table.HeaderCell>
             <Table.HeaderCell>Permission</Table.HeaderCell>
             <Table.HeaderCell />
@@ -18,7 +22,14 @@ class Debug extends Component {
           ? (
             <Table.Body>
               {sessions.map((s) => {
-                const isCurrent = (session && session.auth && s.actor === session.auth.actor.toString() && s.permission === session.auth.permission.toString())
+                const isCurrent = (
+                  session
+                  && session.auth
+                  && s.auth.actor.equals(session.auth.actor)
+                  && s.auth.permission.equals(session.auth.permission)
+                  && s.chainId.equals(session.chainId)
+                )
+                const chain = find(blockchains, { chainId: String(s.chainId) })
                 const key = Object.values(s).join('-')
                 return (
                   <Table.Row key={key}>
@@ -30,8 +41,9 @@ class Debug extends Component {
                         onClick={() => this.props.setSession(s)}
                       />
                     </Table.Cell>
-                    <Table.Cell>{s.actor}</Table.Cell>
-                    <Table.Cell>{s.permission}</Table.Cell>
+                    <Table.Cell collapsing textAlign="center">{chain.name}</Table.Cell>
+                    <Table.Cell>{String(s.auth.actor)}</Table.Cell>
+                    <Table.Cell>{String(s.auth.permission)}</Table.Cell>
                     <Table.Cell collapsing>
                       <Button
                         color="red"
