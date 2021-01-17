@@ -30,7 +30,7 @@ class Debug extends Component {
                   && s.chainId.equals(session.chainId)
                 )
                 const chain = find(blockchains, { chainId: String(s.chainId) })
-                const key = Object.values(s).join('-')
+                const key = Object.values(s.auth).join('-')
                 return (
                   <Table.Row key={key}>
                     <Table.Cell collapsing>
