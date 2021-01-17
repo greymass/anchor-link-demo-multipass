@@ -31,6 +31,7 @@ class App extends Component {
     const demo2Mode = !!params.get('demo2')
     // Set initial blank application state
     this.state = {
+      account: {},
       demoMode,
       demo2Mode,
       error: undefined,
@@ -49,6 +50,22 @@ class App extends Component {
     if (this.state.chainId !== prevState.chainId) {
       this.establishLink()
     }
+    // Logic to detect user change in state
+    if (
+      this.state.session
+      && prevState.session
+      && !prevState.session.auth.actor.equals(this.state.session.auth.actor)
+    ) {
+      this.refreshAccount()
+    }
+  }
+  refreshAccount = async () => {
+    const {client} = this.link
+    const {actor} = this.state.session.auth
+    const account = await client.v1.chain.get_account(actor)
+    this.setState({
+      account
+    })
   }
   addAccount = async () => {
     const { chainId } = this.state
@@ -87,7 +104,6 @@ class App extends Component {
       chainId: b.chainId,
       nodeUrl: `${b.rpcEndpoints[0].protocol}://${b.rpcEndpoints[0].host}:${b.rpcEndpoints[0].port}`
     }))
-    console.log(chains)
     // Initialize anchor-link using the local storage persist module
     this.link = new AnchorLink({
       // Specify the target chainId
@@ -114,6 +130,10 @@ class App extends Component {
       error: undefined,
       session,
       sessions,
+    }, () => {
+      if (session) {
+        this.refreshAccount()
+      }
     })
     // Return in the event we need to immediately use
     return this.link
@@ -203,6 +223,7 @@ class App extends Component {
   render() {
     // Load state for rendering
     const {
+      account,
       chainId,
       demoMode,
       demo2Mode,
@@ -264,6 +285,21 @@ class App extends Component {
             setSession={this.setSession}
             removeSession={this.removeSession}
           />
+        </Segment>
+        <Segment attached padded>
+          <Header>
+            Account Data
+            <Header.Subheader>Example rendering data from API client call</Header.Subheader>
+          </Header>
+            {(account && account.cpu_limit)
+              ? (
+                <p>CPU: {String(account.cpu_limit.available)}μs / {String(account.cpu_limit.max)}μs</p>
+              )
+              : (
+                <p>Account not loaded.</p>
+              )
+            }
+
         </Segment>
         <Segment attached padded textAlign="center">
           <Header>Transact with anchor-link</Header>
