@@ -68,18 +68,33 @@ class App extends Component {
     })
   }
   addAccount = async () => {
-    const { chainId } = this.state
     try {
       // Use the anchor-link login method with the chain id to establish a session
       const identity = await this.link.login('anchor-link-demo-multipass')
+      let proofValid = false
+      // (OPTIONAL) Verify the account and signature within the dapp
+      // Step 1, retrieve the values used
+      const { account, chain, signatures, signer, transaction } = identity
+      const { chainId } = chain
+      // Step 2, get the signature provided by the wallet
+      const [signature] = signatures
+      // Step 3, determine the key used to sign the transaction
+      const digest = transaction.signingDigest(chainId)
+      const proofKey = signature.recoverDigest(digest)
+      // Step 4, look at the account specified and ensure the key matches the specified permission
+      const permission = account.permissions.find(({perm_name}) => perm_name.equals(signer.permission))
+      if (permission) {
+        const auth = permission.required_auth
+        proofValid = !!auth.keys.find(({key}) => key.equals(proofKey))
+      }
       // Retrieve a list of all available sessions to update demo state
       const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
       this.setState({
         error: undefined,
         response: undefined,
-        // proofKey,
-        // proofValid,
+        proofKey: String(proofKey),
+        proofValid,
         session: identity.session,
         sessions,
       })
@@ -228,6 +243,8 @@ class App extends Component {
       demoMode,
       demo2Mode,
       error,
+      proofKey,
+      proofValid,
       session,
       sessions,
       response,
@@ -285,6 +302,18 @@ class App extends Component {
             setSession={this.setSession}
             removeSession={this.removeSession}
           />
+          {(proofKey)
+            ? (
+              <React.Fragment>
+                <p>Login Completed</p>
+                <ul>
+                  <li>Key Used: {proofKey}</li>
+                  <li>Key Valid: {proofValid ? 'Yes' : 'No'}</li>
+                </ul>
+              </React.Fragment>
+            )
+            : false
+          }
         </Segment>
         <Segment attached padded>
           <Header>
