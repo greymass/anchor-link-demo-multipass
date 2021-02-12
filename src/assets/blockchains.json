@@ -4,7 +4,7 @@
      "name": "EOS",
      "rpcEndpoints": [{
        "protocol": "https",
-       "host": "eos.eosn.io",
+       "host": "eos.greymass.com",
        "port": 443
      }]
   },
