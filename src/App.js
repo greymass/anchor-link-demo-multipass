@@ -159,29 +159,41 @@ class App extends Component {
       }
 
     */
-    const chains = blockchains.map(b => ({
-      chainId: b.chainId,
-      nodeUrl: `${b.rpcEndpoints[0].protocol}://${b.rpcEndpoints[0].host}:${b.rpcEndpoints[0].port}`
-    }))
     // Initialize anchor-link using the local storage persist module
-    const supportedChains = {
-      aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906: 'http://localhost:8080',
-    }
     this.link = new AnchorLink({
-      // Specify the target chainId
-      chains,
-      // Optional: Set the callback service, which will default to https://cb.anchor.link
-      service: 'https://cb.anchor.link',
-      // Pass in the browser transport
+      // For a list of all options, please visit:
+      //   https://github.com/greymass/anchor-link/blob/eosio-core/src/link-options.ts#L24-L82
+      // ---
+      // REQUIRED: Specify the supported chains
+      chains: blockchains.map(b => ({
+        chainId: b.chainId,
+        nodeUrl: `${b.rpcEndpoints[0].protocol}://${b.rpcEndpoints[0].host}:${b.rpcEndpoints[0].port}`
+      })),
+      // ---
+      // OPTIONAL: Set a custom API Client https://github.com/greymass/eosio-core/blob/master/src/api/client.ts
+      // client: new APIClient(...),
+      // ---
+      // OPTIONAL: Set the callback service, which will default to https://cb.anchor.link
+      // service: 'https://cb.anchor.link',
+      // ---
+      // OPTIONAL: Identity proof verification, defaults to `true`
+      // verifyProofs: false,
+      // ---
+      // REQUIRED: Pass in the browser transport
       transport: new AnchorLinkBrowserTransport({
-        // Optional: Referral account for Greymass Fuel
-        fuelReferrer: 'jesta.x',
-        // Optional: Fuel by default is used to sign transactions for users with low resources.
+        // For a list of all optons, please visit:
+        //   https://github.com/greymass/anchor-link-browser-transport/blob/eosio-core/src/index.ts#L16-L41
+        // ---
+        // OPTIONAL: Fuel by default is used to sign transactions for users with low resources.
         //            This can be disabled by setting disableGreymassFuel to true.
         // disableGreymassFuel: true,
-        // Optional: Disable the browser transport success/failure messages to serve your own
+        // ---
+        // OPTIONAL: Referral account for Greymass Fuel
+        // fuelReferrer: 'jesta.x',
+        // ---
+        // OPTIONAL: Disable the browser transport success/failure messages to serve your own
         // requestStatus: false
-        supportedChains,
+        // ---
       }),
     })
     // Attempt to restore the last used session for this particular chainId
