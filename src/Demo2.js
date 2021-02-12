@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   Button,
   Container,
+  Divider,
   Form,
   Header,
   List,
@@ -52,6 +53,13 @@ class Demo extends Component {
                       icon="log out"
                       onClick={() => this.props.removeSession(session)}
                     />
+                    <Divider />
+                    <Button
+                      color="purple"
+                      content={`Sample Transaction, Vote for Greymass!`}
+                      icon="pencil"
+                      onClick={() => this.props.signTransaction()}
+                    />
                   </Segment>
                 )
                 : (
@@ -62,25 +70,8 @@ class Demo extends Component {
                     <List>
                       <List.Item>
                         <Button
-                          content="Sign in (Normal)"
+                          content="Sign in"
                           onClick={this.props.addAccount}
-                          icon="user outline"
-                          primary
-                        />
-                      </List.Item>
-                      <List.Item>
-                        <Button
-                          as="a"
-                          content="Sign in (href)"
-                          href={url}
-                          icon="user outline"
-                          primary
-                        />
-                      </List.Item>
-                      <List.Item>
-                        <Button
-                          content="Sign in (window.location)"
-                          onClick={this.button2}
                           icon="user outline"
                           primary
                         />

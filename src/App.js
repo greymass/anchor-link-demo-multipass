@@ -1,13 +1,14 @@
 // React and UI components for demo
 import React, { Component } from 'react'
-import { Button, Container, Header, Segment } from 'semantic-ui-react'
+import { Button, Container, Header, Label, Message, Segment, Table } from 'semantic-ui-react'
 
 // The required anchor-link includes
-import AnchorLink, {LinkSession} from 'anchor-link'
+import AnchorLink, {ChainId, LinkSession} from 'anchor-link'
 import AnchorLinkBrowserTransport from 'anchor-link-browser-transport'
 
 // Optional interfaces to import from anchor-link
-import { PermissionLevel } from 'anchor-link'
+import { APIError } from '@greymass/eosio'
+import { IdentityProof } from 'eosio-signing-request'
 
 // React components for this demo, not required
 import { find } from 'lodash'
@@ -67,40 +68,83 @@ class App extends Component {
       account
     })
   }
-  addAccount = async () => {
+
+  verifyProof = async (identity) => {
+    // Generate an array of valid chain IDs from the demo configuration
+    const chains = blockchains.map(chain => chain.chainId)
+
+    // Create a proof helper based on the identity results from anchor-link
+    const proof = IdentityProof.from(identity.proof)
+
+    // Check to see if the chainId from the proof is valid for this demo
+    const chain = chains.find(id => ChainId.from(id).equals(proof.chainId))
+    if (!chain) {
+        throw new Error('Unsupported chain supplied in identity proof')
+    }
+
+    // Load the account data from a blockchain API
+    let account
     try {
+      account = await this.link.client.v1.chain.get_account(proof.signer.actor)
+    } catch (error) {
+        if (error instanceof APIError && error.code === 0) {
+            throw new Error('No such account', 401)
+        } else {
+            throw error
+        }
+    }
+
+    // Retrieve the auth from the permission specified in the proof
+    const auth = account.getPermission(proof.signer.permission).required_auth
+
+    // Determine if the auth is valid with the given proof
+    const valid = proof.verify(auth, account.head_block_time)
+
+    // If not valid, throw error
+    if (!valid) {
+        throw new Error('Proof invalid or expired', 401)
+    }
+
+    // Recover the key from this proof
+    const proofKey = proof.recover();
+
+    // Return the values expected by this demo application
+    return {
+      account,
+      proof,
+      proofKey,
+      proofValid: valid,
+    }
+  }
+  addAccount = async () => {
+    // try {
       // Use the anchor-link login method with the chain id to establish a session
       const identity = await this.link.login('anchor-link-demo-multipass')
-      let proofValid = false
-      // (OPTIONAL) Verify the account and signature within the dapp
-      // Step 1, retrieve the values used
-      const { account, chain, signatures, signer, transaction } = identity
-      const { chainId } = chain
-      // Step 2, get the signature provided by the wallet
-      const [signature] = signatures
-      // Step 3, determine the key used to sign the transaction
-      const digest = transaction.signingDigest(chainId)
-      const proofKey = signature.recoverDigest(digest)
-      // Step 4, look at the account specified and ensure the key matches the specified permission
-      const permission = account.permissions.find(({perm_name}) => perm_name.equals(signer.permission))
-      if (permission) {
-        const auth = permission.required_auth
-        proofValid = !!auth.keys.find(({key}) => key.equals(proofKey))
-      }
+
+      // (OPTIONAL) Verify the identity proof
+      const {
+        account,
+        proof,
+        proofKey,
+        proofValid,
+      } = await this.verifyProof(identity)
+
       // Retrieve a list of all available sessions to update demo state
       const sessions = await this.link.listSessions('anchor-link-demo-multipass')
       // Update state with the current session and all available sessions
       this.setState({
+        account,
         error: undefined,
         response: undefined,
+        proof,
         proofKey: String(proofKey),
         proofValid,
         session: identity.session,
         sessions,
       })
-    } catch(e) {
-      console.log(e)
-    }
+    // } catch(e) {
+    //   console.log(e)
+    // }
   }
   toSimpleObject = (v) => JSON.parse(JSON.stringify(v))
   establishLink = async () => {
@@ -120,6 +164,9 @@ class App extends Component {
       nodeUrl: `${b.rpcEndpoints[0].protocol}://${b.rpcEndpoints[0].host}:${b.rpcEndpoints[0].port}`
     }))
     // Initialize anchor-link using the local storage persist module
+    const supportedChains = {
+      aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906: 'http://localhost:8080',
+    }
     this.link = new AnchorLink({
       // Specify the target chainId
       chains,
@@ -128,12 +175,13 @@ class App extends Component {
       // Pass in the browser transport
       transport: new AnchorLinkBrowserTransport({
         // Optional: Referral account for Greymass Fuel
-        fuelReferrer: 'jesta.x'
+        fuelReferrer: 'jesta.x',
         // Optional: Fuel by default is used to sign transactions for users with low resources.
         //            This can be disabled by setting disableGreymassFuel to true.
         // disableGreymassFuel: true,
         // Optional: Disable the browser transport success/failure messages to serve your own
         // requestStatus: false
+        supportedChains,
       }),
     })
     // Attempt to restore the last used session for this particular chainId
@@ -160,18 +208,26 @@ class App extends Component {
       // Reset our response state to clear any previous transaction data
       this.setState({ response: undefined })
       const action = {
-        account: 'eosio.token',
-        name: 'transfer',
         authorization: [{
           actor: String(session.auth.actor),
           permission: String(session.auth.permission),
         }],
+        // account: 'eosio.token',
+        // name: 'transfer',
+        // data: {
+        //   from: String(session.auth.actor),
+        //   to: 'teamgreymass',
+        //   quantity: '0.0001 EOS',
+        //   memo: '',
+        // }
+        account: 'eosio',
+        name: 'voteproducer',
         data: {
-          from: String(session.auth.actor),
-          to: 'teamgreymass',
-          quantity: '0.0001 EOS',
-          memo: '',
+          voter: String(session.auth.actor),
+          producers: ['teamgreymass'],
+          proxy: '',
         }
+
       }
       // Call transact on the session (compatible with eosjs.transact)
       const response = await session.transact({
@@ -243,6 +299,7 @@ class App extends Component {
       demoMode,
       demo2Mode,
       error,
+      proof,
       proofKey,
       proofValid,
       session,
@@ -305,11 +362,44 @@ class App extends Component {
           {(proofKey)
             ? (
               <React.Fragment>
-                <p>Login Completed</p>
-                <ul>
-                  <li>Key Used: {proofKey}</li>
-                  <li>Key Valid: {proofValid ? 'Yes' : 'No'}</li>
-                </ul>
+                <Message
+                  attached="top"
+                  content="The information below verifies the users identity. If you need it for future use, save it within your application. It is only available immediately after sign in."
+                  header="Account Successfully Authenticated"
+                  success
+                />
+                <Table definition attached="bottom" size="small">
+                  <Table.Row>
+                    <Table.Cell>Valid</Table.Cell>
+                    <Table.Cell>
+                      {proofValid ? (
+                        <Label color="green" content="True" />
+                      ) : (
+                        <Label color="orange" content="False" />
+                      )}
+                    </Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Chain ID</Table.Cell>
+                    <Table.Cell>{String(proof.chainId)}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Permission</Table.Cell>
+                    <Table.Cell>{String(proof.signer)}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Signature</Table.Cell>
+                    <Table.Cell>{String(proof.signature)}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Public Key</Table.Cell>
+                    <Table.Cell>{proofKey}</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Proof Valid Until</Table.Cell>
+                    <Table.Cell>{String(proof.expiration)}</Table.Cell>
+                  </Table.Row>
+                </Table>
               </React.Fragment>
             )
             : false
