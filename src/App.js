@@ -224,14 +224,6 @@ class App extends Component {
           actor: String(session.auth.actor),
           permission: String(session.auth.permission),
         }],
-        // account: 'eosio.token',
-        // name: 'transfer',
-        // data: {
-        //   from: String(session.auth.actor),
-        //   to: 'teamgreymass',
-        //   quantity: '0.0001 EOS',
-        //   memo: '',
-        // }
         account: 'eosio',
         name: 'voteproducer',
         data: {
@@ -239,7 +231,6 @@ class App extends Component {
           producers: ['teamgreymass'],
           proxy: '',
         }
-
       }
       // Call transact on the session (compatible with eosjs.transact)
       const response = await session.transact({
