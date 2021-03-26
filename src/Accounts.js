@@ -67,14 +67,24 @@ class Debug extends Component {
         <Table.Footer fullWidth>
           <Table.Row>
             <Table.HeaderCell />
-            <Table.HeaderCell colSpan="4" textAlign="center">
+            <Table.HeaderCell colSpan="4" textAlign="right">
               <Button
-                basic
                 content="Add Account"
-                fluid
+                icon="plus circle"
                 onClick={this.props.addAccount}
                 primary
               />
+              {(sessions.length)
+                ? (
+                    <Button
+                        color="red"
+                        content="Logout All"
+                        icon="trash"
+                        onClick={() => this.props.clearSessions()}
+                    />
+                )
+                : false
+              }
             </Table.HeaderCell>
           </Table.Row>
         </Table.Footer>

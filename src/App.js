@@ -294,6 +294,16 @@ class App extends Component {
       sessions: sessions.filter(s => !(s.auth.actor.equals(ls.auth.actor) && s.auth.permission.equals(ls.auth.permission)))
     })
   }
+  // React State Helper to remove/delete a session
+  clearSessions = async () => {
+    // Remove from local storage based on an auth (e.g. {actor: 'foo', permission: 'bar'})
+    await this.link.clearSessions('anchor-link-demo-multipass')
+    // Remove all sessions from local application state
+    this.setState({ 
+        session: undefined,
+        sessions: [] 
+    });
+  }
   render() {
     // Load state for rendering
     const {
@@ -356,6 +366,7 @@ class App extends Component {
           <Header>Available Accounts</Header>
           <Accounts
             addAccount={this.addAccount}
+            clearSessions={this.clearSessions}
             chain={chain}
             session={session}
             sessions={sessions}
